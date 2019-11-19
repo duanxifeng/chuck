@@ -89,13 +89,15 @@ public class NotificationHelper {
             }
             int count = 0;
             for (int i = transactionBuffer.size() - 1; i >= 0; i--) {
-                if (count < BUFFER_SIZE) {
-                    if (count == 0) {
-                        builder.setContentText(transactionBuffer.valueAt(i).getNotificationText());
+                if (transactionBuffer.valueAt(i) != null) {
+                    if (count < BUFFER_SIZE) {
+                        if (count == 0) {
+                            builder.setContentText(transactionBuffer.valueAt(i).getNotificationText());
+                        }
+                        inboxStyle.addLine(transactionBuffer.valueAt(i).getNotificationText());
                     }
-                    inboxStyle.addLine(transactionBuffer.valueAt(i).getNotificationText());
+                    count++;
                 }
-                count++;
             }
             builder.setAutoCancel(true);
             builder.setStyle(inboxStyle);
